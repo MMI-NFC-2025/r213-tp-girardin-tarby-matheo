@@ -1,3 +1,4 @@
-- Nom:
-- Prénom:
+- Nom: Girardin Tarby
+- Prénom: Mathéo
 - URL vercel: 
+- URL netlify : [enchanting-fairy-b025cb.netlify.app](https://enchanting-fairy-b025cb.netlify.app/)
