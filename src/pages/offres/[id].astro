@@ -1,0 +1,18 @@
+---
+import { getOffre } from "../../js/backend.mjs";
+import Layout from "../../layouts/Layout.astro";
+
+import PbImage from "../../components/PbImage.astro";
+
+const { id } = Astro.params;
+const offre = await getOffre(id);
+console.log(offre);
+---
+
+<Layout titre={offre.nomMaison}>
+    <h2>{offre.nomMaison}</h2>
+    <PbImage record={offre} recordImage={offre.images[0]} />
+    <ul>
+        <li>{offre.adresse}</li>
+    </ul>
+</Layout>

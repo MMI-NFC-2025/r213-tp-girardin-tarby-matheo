@@ -17,3 +17,25 @@ export async function getOffres() {
 export async function getImageUrl(record, recordImage) {
     return db.files.getURL(record, recordImage);
 }
+
+export async function getOffre(id) {
+    try {
+        const data = await db.collection('maison_a_vendre').getOne(id);
+        return data;
+    } catch (error) {
+        console.log('Une erreur est survenue en lisant la maison', error);
+        return {};
+    }
+}
+
+export async function getNom(nomMaison) {
+    try {
+        const data = await db.collection('maison_a_vendre').getFullList({
+            filter: `nomMaison = "${nomMaison}"`
+        });
+        return data;
+    } catch (error) {
+        console.log('Une erreur est survenue en créant la maison', error);
+        return null;
+    }
+}

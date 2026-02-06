@@ -1,0 +1,50 @@
+---
+import "../../../styles/global.css";
+import Layout from "../../../layouts/Layout.astro";
+import Card from "../../../components/Card.astro";
+import { getOffres } from "../../../js/backend.mjs";
+
+const { surface } = Astro.params;
+const minSurface = Number(surface) || 0;
+
+const offresRaw = await getOffres();
+
+function getSurfaceVal(offre) {
+    const candidates = [
+        "surface",
+        "surfaceM2",
+        "surface_m2",
+        "surface_m²",
+        "surface_m2",
+    ];
+    for (const k of candidates) {
+        if (offre[k] !== undefined && !isNaN(Number(offre[k])))
+            return Number(offre[k]);
+    }
+    for (const v of Object.values(offre)) {
+        if (typeof v === "number" && !isNaN(v)) return v;
+        if (typeof v === "string" && /^\d+(?:\.\d+)?$/.test(v))
+            return Number(v);
+    }
+    return NaN;
+}
+
+const offres = offresRaw.filter((o) => {
+    const s = getSurfaceVal(o);
+    return !isNaN(s) && s > minSurface;
+});
+---
+
+<Layout titre={`Offres — surface > ${minSurface} m²`}>
+    <h1>Maisons &gt; {minSurface} m²</h1>
+
+    <div id="offres-container">
+        {
+            offres.map((offre) => (
+                <div class="offre" data-favori={offre.favori?.toString()}>
+                    <Card offre={offre} />
+                </div>
+            ))
+        }
+    </div>
+</Layout>
