@@ -55,3 +55,15 @@ export async function addOffre(house) {
         };
     }
 }
+
+export async function filterByPrix(minPrix, maxPrix) {
+    try {
+        const data = await db.collection('maison_a_vendre').getFullList({
+            filter: `prix >= ${minPrix} && prix <= ${maxPrix}`
+        });
+        return data;
+    } catch (error) {
+        console.log('Une erreur est survenue en filtrant les maisons par prix', error);
+        return [];
+    }
+}
