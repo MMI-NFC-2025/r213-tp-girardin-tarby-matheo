@@ -2,6 +2,7 @@
 import "../../styles/global.css";
 import Layout from "../../layouts/Layout.astro";
 import Card from "../../components/Card.astro";
+import Add from "./add.astro";
 import { getOffres } from "../../js/backend.mjs";
 
 const offres = await getOffres();
@@ -9,7 +10,7 @@ const offres = await getOffres();
 
 <Layout titre="Offres">
     <h1>Offres</h1>
-
+    <Add />
     <button id="favori-button" class="bg-slate-600 rounded-lg text-white p-2">
         Afficher les favoris
     </button>
