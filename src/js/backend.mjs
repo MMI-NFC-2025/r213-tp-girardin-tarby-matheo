@@ -67,3 +67,37 @@ export async function filterByPrix(minPrix, maxPrix) {
         return [];
     }
 }
+
+export async function getAgents() {
+    try {
+        let data = await db.collection('agent').getFullList({
+            sort: '-created',
+        });
+        return data;
+    } catch (error) {
+        console.log('Une erreur est survenue en lisant la liste des agents', error);
+        return [];
+    }
+}
+
+export async function getAgent(id) {
+    try {
+        const data = await db.collection('agent').getOne(id);
+        return data;
+    } catch (error) {
+        console.log('Une erreur est survenue en lisant l\'agent', error);
+        return {};
+    }
+}
+
+export async function getOffresByAgent(agentId) {
+    try {
+        const data = await db.collection('maison_a_vendre').getFullList({
+            filter: `agent = "${agentId}"`
+        });
+        return data;
+    } catch (error) {
+        console.log('Une erreur est survenue en lisant les offres de l\'agent', error);
+        return [];
+    }
+}

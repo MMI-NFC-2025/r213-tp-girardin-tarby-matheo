@@ -1,0 +1,20 @@
+---
+const { agent } = Astro.props;
+
+---
+
+<div class="card">
+    <h2>{agent.nom}</h2>
+    <p>{agent.prenom}</p>
+    {agent.email && <p> {agent.email}</p>}
+    <a href={`/agents/${agent.id}`}>Voir plus</a>
+</div>
+
+<style>
+    .card {
+        border: 1px solid #ddd;
+        padding: 1rem;
+        border-radius: 8px;
+        max-width: 260px;
+    }
+</style>
